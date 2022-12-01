@@ -1,3 +1,3 @@
-# aoc-2022
+# Advent of Code 2022
 
-A description of this package.
+[Advent of Code 2022](https://adventofcode.com/2022/) with Swift.
