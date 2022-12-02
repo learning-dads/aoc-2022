@@ -12,7 +12,18 @@ public class Day2: Puzzle {
     let drawPoints = 3
 
     override func part1() -> String {
-        
+        var totalPoints = 0
+        newInput.lines.map { input in
+            let components = input.components(separatedBy: .whitespaces)
+            totalPoints += switch components[1]{
+            case rock.ownValue: rock.pointValue
+            case paper.ownValue: paper.pointValue
+            case scissors.ownValue: scissors.pointValue
+            default: 0
+            }
+            
+        }
+        return ""
     }
     //1. Deterin pointValue
     //2. Determin if won or draw
