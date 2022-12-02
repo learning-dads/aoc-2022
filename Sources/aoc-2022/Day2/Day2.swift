@@ -29,8 +29,6 @@ protocol RockPaperScissor {
 }
 
 public class Day2: Puzzle {
-
-    let winConditions = ["X":"C","Y":"X","Z":"B"]
     let winningPoints = 6
     let drawPoints = 3
 
