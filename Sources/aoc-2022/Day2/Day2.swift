@@ -1,18 +1,18 @@
 import Foundation
 
-class rock: RockPaperScissor {
+class Rock: RockPaperScissor {
     var rivalValue = "A"
     var ownValue = "X"
     var pointValue = 1
 }
 
-class paper: RockPaperScissor {
+class Paper: RockPaperScissor {
     var rivalValue = "B"
     var ownValue = "Y"
     var pointValue = 2
 }
 
-class scissors: RockPaperScissor {
+class Scissors: RockPaperScissor {
     var rivalValue = "C"
     var ownValue = "Z"
     var pointValue = 3
@@ -37,10 +37,12 @@ public class Day2: Puzzle {
 
 
             //1. Determin pointValue
-            totalPoints += foo(components[1])
+            let ownFoo = ownFoo(components[1])
+            let rivalFoo = rivalFoo(components[0])
+            totalPoints += ownFoo.pointValue
 
             //2. Determin if won or draw
-            if components[0] == components[1] {
+            if type(of: ownFoo) == type(of: rivalFoo) {
                 totalPoints += drawPoints
             } else if winConditions[components[1]] == components[0] {
                 totalPoints += winningPoints
@@ -54,15 +56,27 @@ public class Day2: Puzzle {
         return "fred"
     }
 
-    func foo(_ input: String) -> RockPaperScissor {
+    func ownFoo(_ input: String) -> RockPaperScissor {
         switch input {
-        case rock.ownValue:
-            return rock.pointValue
-        case paper.ownValue:
-            return paper.pointValue
-        case scissors.ownValue:
-            return scissors.pointValue
-        default: return 0
+        case Rock().ownValue:
+            return Rock()
+        case Paper().ownValue:
+            return Paper()
+        case Scissors().ownValue:
+            return Scissors()
+        default: fatalError()
+        }
+    }
+
+    func rivalFoo(_ input: String) -> RockPaperScissor {
+        switch input {
+        case Rock().rivalValue:
+            return Rock()
+        case Paper().rivalValue:
+            return Paper()
+        case Scissors().rivalValue:
+            return Scissors()
+        default: fatalError()
         }
     }
 }
