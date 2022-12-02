@@ -4,24 +4,28 @@ class Rock: RockPaperScissor {
     var rivalValue = "A"
     var ownValue = "X"
     var pointValue = 1
+    var type = "Rock"
 }
 
 class Paper: RockPaperScissor {
     var rivalValue = "B"
     var ownValue = "Y"
     var pointValue = 2
+    var type = "Paper"
 }
 
 class Scissors: RockPaperScissor {
     var rivalValue = "C"
     var ownValue = "Z"
     var pointValue = 3
+    var type = "Scissors"
 }
 
 protocol RockPaperScissor {
     var rivalValue: String { get }
     var ownValue: String { get }
     var pointValue: Int { get }
+    var type: String { get }
 }
 
 public class Day2: Puzzle {
@@ -31,23 +35,22 @@ public class Day2: Puzzle {
     let drawPoints = 3
 
     override func part1() -> String {
-        var totalPoints = 0
-        newInput.lines.map { input in
+        let totalPoints = newInput.lines.map { input in
             let components = input.components(separatedBy: .whitespaces)
-
 
             //1. Determin pointValue
             let ownFoo = ownFoo(components[1])
             let rivalFoo = rivalFoo(components[0])
-            totalPoints += ownFoo.pointValue
+            var points = ownFoo.pointValue
 
             //2. Determin if won or draw
-            if type(of: ownFoo) == type(of: rivalFoo) {
-                totalPoints += drawPoints
-            } else if winConditions[components[1]] == components[0] {
-                totalPoints += winningPoints
+            if ownFoo.type == rivalFoo.type {
+                points += drawPoints
+            } else if winOver(own: ownFoo, rival: rivalFoo) {
+                points += winningPoints
             }
-        }
+            return points
+        }.reduce(0, +)
 
         return String(describing: totalPoints)
     }
@@ -78,5 +81,18 @@ public class Day2: Puzzle {
             return Scissors()
         default: fatalError()
         }
+    }
+    
+    func winOver(own: RockPaperScissor, rival: RockPaperScissor) -> Bool {
+        if own.type == Rock().type && rival.type == Scissors().type {
+            return true
+        }
+        if own.type == Paper().type && rival.type == Rock().type {
+            return true
+        }
+        if own.type == Scissors().type && rival.type == Paper().type {
+            return true
+        }
+        return false
     }
 }
