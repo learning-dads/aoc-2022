@@ -15,15 +15,32 @@ public class Day2: Puzzle {
         var totalPoints = 0
         newInput.lines.map { input in
             let components = input.components(separatedBy: .whitespaces)
-            totalPoints += switch components[1]{
-            case rock.ownValue: rock.pointValue
-            case paper.ownValue: paper.pointValue
-            case scissors.ownValue: scissors.pointValue
-            default: 0
+            totalPoints += foo(components[1])
+
+            if components[0] == components[1] {
+                totalPoints += drawPoints
+            } else if winConditions[components[1]] == components[0] {
+                totalPoints += winningPoints
             }
-            
         }
-        return ""
+
+        return String(describing: totalPoints)
+    }
+
+    override func part2() -> String {
+        return "fred"
+    }
+
+    func foo(_ input: String) -> Int {
+        switch input {
+        case rock.ownValue:
+            return rock.pointValue
+        case paper.ownValue:
+            return paper.pointValue
+        case scissors.ownValue:
+            return scissors.pointValue
+        default: return 0
+        }
     }
     //1. Deterin pointValue
     //2. Determin if won or draw

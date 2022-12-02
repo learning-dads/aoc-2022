@@ -16,7 +16,7 @@ final class aoc_2022Tests: XCTestCase {
 
         let p = day.results()
 
-        XCTAssertEqual(p.p1, "0")
-        XCTAssertEqual(p.p2, "206780")
+        XCTAssertEqual(p.p1, "15")
+        XCTAssertEqual(p.p2, "")
     }
 }
